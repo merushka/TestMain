@@ -2,29 +2,23 @@
 
 namespace WebApplication.Models
 {
-    [Table(Name = "ORDERITEMS")]
+    [Table(Name = "ORDERITEMS")] // Имя таблицы, как в Oracle
     public class OrderItem
     {
         [PrimaryKey, Identity]
-        [Column("ID")]
+        [Column(Name = "ID")]
         public int Id { get; set; }
 
-        [Column("ORDERID"), NotNull]
+        [Column(Name = "ORDERID"), NotNull]
         public int OrderId { get; set; }
 
-        [Column("PRODUCTID"), NotNull]
+        [Column(Name = "PRODUCTID"), NotNull]
         public int ProductId { get; set; }
 
-        [Column("QUANTITY"), NotNull]
+        [Column(Name = "QUANTITY"), NotNull]
         public int Quantity { get; set; }
 
-        [Column("PRICE"), NotNull]
+        [Column(Name = "PRICE"), NotNull]
         public decimal Price { get; set; }
-
-        [Association(ThisKey = "OrderId", OtherKey = "Id")]
-        public Order? Order { get; set; }
-
-        [Association(ThisKey = "ProductId", OtherKey = "Id")]
-        public Product? Product { get; set; }
     }
 }

@@ -1,26 +1,22 @@
-using WebApplication.Data;
-using Microsoft.AspNetCore.Builder;
+п»їusing Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using WebApplication.Data;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
-//  подключения
-var config = builder.Configuration;
-var connectionString = config.GetConnectionString("OracleDb");
+var connectionString = configuration.GetConnectionString("OracleDb");
 
 if (string.IsNullOrEmpty(connectionString))
 {
-    throw new InvalidOperationException("? Строка подключения к Oracle не найдена! Проверьте appsettings.json");
+    throw new InvalidOperationException("вќЊ РћС€РёР±РєР°: РЎС‚СЂРѕРєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ РЅРµ РЅР°Р№РґРµРЅР°...");
 }
 
-builder.Services.AddScoped<DatabaseContext>();
+builder.Services.AddScoped(provider => new DatabaseContext(connectionString));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -34,17 +30,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-
-    try
-    {
-        Console.WriteLine("?? Seeding database...");
-        DatabaseSeeder.SeedAll(db);
-        Console.WriteLine("? Database seeding completed!");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"? Ошибка сидирования данных: {ex.Message}");
-    }
+    DatabaseSeeder.SeedAll(db);
 }
 
 if (app.Environment.IsDevelopment())
@@ -53,11 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseCors("AllowAll");
-
 app.UseAuthorization();
 app.MapControllers();
-
-Console.WriteLine("?? API запущен!");
 app.Run();

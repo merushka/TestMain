@@ -1,16 +1,18 @@
 ﻿using LinqToDB;
 using LinqToDB.Data;
-using LinqToDB.DataProvider.Oracle;
-using Microsoft.Extensions.Configuration;
 using WebApplication.Models;
 
 namespace WebApplication.Data
 {
     public class DatabaseContext : DataConnection
     {
-        public DatabaseContext(IConfiguration config)
-            : base("Oracle.Managed", config.GetConnectionString("OracleDb")!)
+        public DatabaseContext(string connectionString)
+            : base(ProviderName.OracleManaged, connectionString)
         {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException("❌ Ошибка: строка подключения не задана!");
+            }
         }
 
         public ITable<Customer> Customers => this.GetTable<Customer>();

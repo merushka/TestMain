@@ -64,6 +64,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "orders",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication.DTOs.CreateOrderDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication.Controllers.OrderController",
+    "Method": "GetOrder",
+    "RelativePath": "orders/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication.Controllers.ProductsController",
     "Method": "CreateProduct",
     "RelativePath": "products",
@@ -113,7 +145,7 @@
   },
   {
     "ContainingType": "WebApplication.Controllers.SummaryController",
-    "Method": "GetSalesByProductIds",
+    "Method": "GetSalesSummary",
     "RelativePath": "summary/sales/products",
     "HttpMethod": "POST",
     "IsController": true,
@@ -121,7 +153,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "WebApplication.DTOs.ProductSalesRequest",
+        "Type": "WebApplication.DTOs.SalesSummaryRequest",
         "IsRequired": true
       }
     ],

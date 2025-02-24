@@ -59,6 +59,60 @@
         }
       }
     },
+    "/orders": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/orderitems": {
       "post": {
         "tags": [
@@ -222,17 +276,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductSalesRequest"
+                "$ref": "#/components/schemas/SalesSummaryRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductSalesRequest"
+                "$ref": "#/components/schemas/SalesSummaryRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductSalesRequest"
+                "$ref": "#/components/schemas/SalesSummaryRequest"
               }
             }
           }
@@ -247,6 +301,32 @@
   },
   "components": {
     "schemas": {
+      "CreateOrderDto": {
+        "required": [
+          "customerId",
+          "date",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateProductDto": {
         "type": "object",
         "properties": {
@@ -301,7 +381,28 @@
         },
         "additionalProperties": false
       },
-      "ProductSalesRequest": {
+      "OrderItemDto": {
+        "required": [
+          "productId",
+          "quantity"
+        ],
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "maximum": 1000,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "SalesSummaryRequest": {
         "type": "object",
         "properties": {
           "productIds": {

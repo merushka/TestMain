@@ -58,6 +58,7 @@ C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\WebAp
 C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\WebApplication.csproj.CoreCompileInputs.cache
 C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\WebApplication.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\WebApplication.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\WebApplication.sourcelink.json
 C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\77077\source\repos\WebApplication\WebApplication\obj\Debug\net8.0\staticwebassets\msbuild.WebApplication.Microsoft.AspNetCore.StaticWebAssets.props

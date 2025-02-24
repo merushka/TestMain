@@ -32,7 +32,7 @@ namespace WebApplication.Controllers
         {
             if (dto == null)
                 return BadRequest("Некорректные данные позиции заказа.");
-          
+
             var entity = new OrderItem
             {
                 OrderId = dto.OrderId,

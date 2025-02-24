@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication.DTOs;
 using WebApplication.Data;
 using WebApplication.Models;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -13,10 +11,7 @@ namespace WebApplication.Controllers
     {
         private readonly DatabaseContext _context;
 
-        public StatisticsController(DatabaseContext context)
-        {
-            _context = context;
-        }
+        public StatisticsController(DatabaseContext context) => _context = context;
 
         [HttpGet("products/{id}")]
         public IActionResult GetProductStatistics(int id)
@@ -29,16 +24,19 @@ namespace WebApplication.Controllers
 
             var orders = _context.OrderItems
                 .Where(oi => oi.ProductId == id)
-                .Select(oi => new
-                {
-                    OrderId = oi.OrderId,
-                    Count = oi.Quantity,
-                    Summ = oi.Quantity * oi.Price,
-                    UserName = _context.Orders
-                        .Where(o => o.Id == oi.OrderId)
-                        .Select(o => o.Customer == null ? "[No name]" : o.Customer.Name)
-                        .FirstOrDefault()
-                })
+                .Join(_context.Orders,
+                      oi => oi.OrderId,
+                      o => o.Id,
+                      (oi, o) => new
+                      {
+                          OrderId = oi.OrderId,
+                          Count = oi.Quantity,
+                          Summ = oi.Quantity * oi.Price,
+                          UserName = _context.Customers
+                              .Where(c => c.Id == o.CustomerId)
+                              .Select(c => c.Name)
+                              .FirstOrDefault() ?? "[No name]"
+                      })
                 .ToList();
 
             return Ok(new

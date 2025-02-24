@@ -1,0 +1,21 @@
+# Игнорируем временные файлы и папки компиляции
+bin/
+obj/
+Debug/
+*.log
+*.cache
+*.tmp
+
+# Игнорируем файлы конфигурации
+appsettings.json
+appsettings.Development.json
+
+# Игнорируем файлы IDE
+.vscode/
+*.suo
+*.user
+*.db
+*.sln.ide
+
+# Игнорируем зависимости (если есть Node.js)
+node_modules/

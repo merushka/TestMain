@@ -2,7 +2,7 @@
 
 namespace WebApplication.Models
 {
-    [Table(Name = "ORDERITEMS")] // Имя таблицы, как в Oracle
+    [Table(Name = "ORDERITEMS")] 
     public class OrderItem
     {
         [PrimaryKey, Identity]

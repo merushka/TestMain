@@ -2,7 +2,7 @@
 using LinqToDB;
 using WebApplication.Data;
 using WebApplication.Models;
-using WebApplication.DTOs; // Убедитесь, что CreateProductDto находится в этом пространстве имен
+using WebApplication.DTOs; 
 
 namespace WebApplication.Controllers
 {
@@ -17,7 +17,6 @@ namespace WebApplication.Controllers
             _context = context;
         }
 
-        // POST /products
         [HttpPost]
         public IActionResult CreateProduct([FromBody] CreateProductDto dto)
         {
@@ -44,7 +43,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        // GET /products/{id}
+       
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id)
         {

@@ -1,8 +1,6 @@
-﻿// DTOs/OrderDtos.cs
-
+﻿
 namespace WebApplication.DTOs
 {
-    // Запрос на создание заказа:
     public class CreateOrderRequest
     {
         public int CustomerId { get; set; }
@@ -17,7 +15,6 @@ namespace WebApplication.DTOs
         public decimal Price { get; set; }
     }
 
-    // Ответ, который можно вернуть в GET /orders/{id} или когда создается заказ
     public class OrderResponse
     {
         public int Id { get; set; }
@@ -38,16 +35,12 @@ namespace WebApplication.DTOs
 
         public ProductDto? Product { get; set; }
     }
-
-    // Для клиента
     public class CustomerDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
         public string Email { get; set; } = "";
     }
-
-    // Для продукта
     public class ProductDto
     {
         public int Id { get; set; }

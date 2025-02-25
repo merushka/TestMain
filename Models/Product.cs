@@ -6,7 +6,7 @@ namespace WebApplication.Models
     public class Product
     {
         [PrimaryKey, Identity]
-        [Column(Name = "ID")]  // Убедитесь, что в БД действительно "ID"
+        [Column(Name = "ID")]  
         public int Id { get; set; }
 
         [Column(Name = "NAME"), NotNull]

@@ -28,7 +28,6 @@ namespace WebApplication.Data
                     SeedCustomers(db);
                     SeedProducts(db);
 
-                    // Добавляем COMMIT после вставки продуктов
                     db.Execute("COMMIT");
                     Console.WriteLine("✅ Данные о продуктах зафиксированы в БД!");
 
@@ -113,7 +112,6 @@ namespace WebApplication.Data
                 }
             }
 
-            // Явный коммит после вставки продуктов
             db.Execute("COMMIT");
             Console.WriteLine("✅ Данные о продуктах зафиксированы в БД!");
         }
@@ -168,7 +166,6 @@ namespace WebApplication.Data
                 int productId = allProductIds[rand.Next(allProductIds.Count)];
                 int quantity = rand.Next(1, 5);
 
-                // 📌 Получаем цену товара из БД (а не из запроса!)
                 decimal price = db.Products
                     .Where(p => p.Id == productId)
                     .Select(p => p.Price)
@@ -176,13 +173,12 @@ namespace WebApplication.Data
 
                 Console.WriteLine($"📌 Проверка перед INSERT: OrderID={orderId}, ProductID={productId}, Quantity={quantity}, Price={price}");
 
-                // Создаем объект заказа
                 var item = new OrderItem
                 {
                     OrderId = orderId,
                     ProductId = productId,
                     Quantity = quantity,
-                    Price = price // Используем цену из БД
+                    Price = price 
                 };
 
                 var newId = db.InsertWithInt32Identity(item);

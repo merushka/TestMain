@@ -37,7 +37,6 @@ namespace WebApplication.Controllers
             {
                 Console.WriteLine("🔄 Создание заказа...");
 
-                // ✅ Обрезаем миллисекунды из OrderDate
                 var cleanOrderDate = request.Date.AddMilliseconds(-request.Date.Millisecond);
 
                 var order = new Order
@@ -49,7 +48,7 @@ namespace WebApplication.Controllers
                         request.Date.Day,
                         request.Date.Hour,
                         request.Date.Minute,
-                        0, // Секунды обрезаем
+                        0, 
                         DateTimeKind.Utc)
                 };
                 var orderIdObj = _db.InsertWithIdentity(order);
@@ -99,7 +98,7 @@ namespace WebApplication.Controllers
                 {
                     order.Id,
                     order.CustomerId,
-                    OrderDate = cleanOrderDate,  // ✅ Отправляем дату без миллисекунд
+                    OrderDate = cleanOrderDate,  
                     TotalOrderPrice = totalOrderPrice,
                     Items = orderItems.Select(i => new
                     {

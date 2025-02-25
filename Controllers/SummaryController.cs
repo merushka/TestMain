@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using WebApplication.Data;
-using WebApplication.DTOs; // ✅ Добавляем using, если не было
+using WebApplication.DTOs;
 
 namespace WebApplication.Controllers
 {
@@ -32,7 +32,7 @@ namespace WebApplication.Controllers
                     Count = _db.OrderItems.Where(oi => oi.OrderId == joined.o.Id && oi.ProductId == id).Sum(oi => oi.Quantity),
                     TotalPrice = _db.OrderItems.Where(oi => oi.OrderId == joined.o.Id && oi.ProductId == id)
                                                .Sum(oi => oi.Quantity * oi.Price),
-                    UserName = joined.c.Name // ✅ Уже получили при `Join`
+                    UserName = joined.c.Name 
                 })
                 .ToList();
 
@@ -77,11 +77,10 @@ namespace WebApplication.Controllers
                     oi.Quantity,
                     oi.Price
                 })
-                .ToList(); // 💡 Загружаем в память
+                .ToList(); 
 
-            // ✅ Шаг 3: Переносим GroupBy() в C#
             var orders = ordersList
-                .ToList() // 💡 Выполняем на стороне клиента
+                .ToList() 
                 .GroupBy(o => new { o.Id, o.OrderDate, o.CustomerId })
                 .Select(g => new
                 {

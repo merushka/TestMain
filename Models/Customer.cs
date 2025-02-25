@@ -6,7 +6,7 @@ namespace WebApplication.Models
     public class Customer
     {
         [PrimaryKey, Identity]
-        [Column(Name = "ID")]  // ВАЖНО: ID в верхнем регистре
+        [Column(Name = "ID")]  
         public int Id { get; set; }
 
         [Column(Name = "NAME"), NotNull]

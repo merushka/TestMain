@@ -17,7 +17,6 @@ namespace WebApplication.Controllers
             _context = context;
         }
 
-        // DTO для создания одной позиции
         public class CreateSingleOrderItemDto
         {
             public int OrderId { get; set; }
@@ -26,7 +25,6 @@ namespace WebApplication.Controllers
             public decimal Price { get; set; }
         }
 
-        // POST /orderitems
         [HttpPost]
         public IActionResult CreateOrderItem([FromBody] CreateSingleOrderItemDto dto)
         {
@@ -47,7 +45,6 @@ namespace WebApplication.Controllers
             return CreatedAtAction(nameof(GetOrderItem), new { id = entity.Id }, entity);
         }
 
-        // GET /orderitems/{id}
         [HttpGet("{id}")]
         public IActionResult GetOrderItem(int id)
         {

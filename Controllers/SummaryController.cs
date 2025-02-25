@@ -25,7 +25,7 @@ namespace WebApplication.Controllers
 
             var orders = _db.Orders
                 .Where(o => _db.OrderItems.Any(oi => oi.ProductId == id && oi.OrderId == o.Id))
-                .Join(_db.Customers, o => o.CustomerId, c => c.Id, (o, c) => new { o, c }) // ✅ Вместо отдельного запроса
+                .Join(_db.Customers, o => o.CustomerId, c => c.Id, (o, c) => new { o, c }) 
                 .Select(joined => new
                 {
                     OrderId = joined.o.Id,
@@ -54,7 +54,6 @@ namespace WebApplication.Controllers
             if (request.DateStart > request.DateEnd)
                 return BadRequest("❌ Ошибка: Неверный период. DateStart не может быть больше DateEnd.");
 
-            // ✅ Шаг 1: Загружаем заказы, попадающие в диапазон дат
             var ordersList = _db.Orders
                 .Where(o => request.DateStart <= o.OrderDate && o.OrderDate <= request.DateEnd)
                 .Where(o => _db.OrderItems.Any(oi => request.ProductIds.Contains(oi.ProductId) && oi.OrderId == o.Id))
@@ -64,9 +63,8 @@ namespace WebApplication.Controllers
                     o.OrderDate,
                     o.CustomerId
                 })
-                .ToList(); // 💡 Загружаем данные в память
+                .ToList(); 
 
-            // ✅ Шаг 2: Загружаем OrderItems для найденных заказов
             var orderItems = _db.OrderItems
                 .Where(oi => ordersList.Select(o => o.Id).Contains(oi.OrderId))
                 .Where(oi => request.ProductIds.Contains(oi.ProductId))

@@ -1,5 +1,4 @@
-﻿
-namespace WebApplication.DTOs
+﻿namespace WebApplication.DTOs
 {
     public class CreateOrderRequest
     {

@@ -14,7 +14,7 @@ namespace WebApplication.Models
         public int CustomerId { get; set; }
 
         [Column("ORDERDATE"), NotNull]
-        public DateTime OrderDate { get; set; } = DateTime.UtcNow.AddMilliseconds(-DateTime.UtcNow.Millisecond); // Убираем миллисекунды
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow.AddMilliseconds(-DateTime.UtcNow.Millisecond); 
 
         [Association(ThisKey = "CustomerId", OtherKey = "Id", CanBeNull = false)]
         public Customer Customer { get; set; }

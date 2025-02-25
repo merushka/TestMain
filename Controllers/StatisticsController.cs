@@ -3,7 +3,7 @@ using WebApplication.Data;
 using WebApplication.Models;
 using System.Linq;
 
-namespace WebApplication.Controllers
+namespace WebApplicationTest.Controllers
 {
     [Route("statistics/sales")]
     [ApiController]
@@ -16,9 +16,12 @@ namespace WebApplication.Controllers
         [HttpGet("products/{id}")]
         public IActionResult GetProductStatistics(int id)
         {
+            Console.WriteLine($"🟢 Получен запрос на статистику по продукту ID={id}");
+
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
             {
+                Console.WriteLine($"🔴 Продукт {id} не найден!");
                 return NotFound("Продукт не найден.");
             }
 
@@ -38,6 +41,8 @@ namespace WebApplication.Controllers
                               .FirstOrDefault() ?? "[No name]"
                       })
                 .ToList();
+
+            Console.WriteLine($"✅ Найдено заказов: {orders.Count}");
 
             return Ok(new
             {
